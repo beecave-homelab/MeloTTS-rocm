@@ -9,4 +9,18 @@ services:
       - .:/app
     environment:
       - PYTHONUNBUFFERED=1
-    command: ["python", "-m", "melo.app", "--host", "0.0.0.0", "--port", "8888"]
+    command: ["python3", "-m", "melo.app", "--host", "0.0.0.0", "--port", "8888"]
+    # To allow AMD GPU access:
+    devices:
+      - "/dev/kfd:/dev/kfd"
+      - "/dev/dri:/dev/dri"
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    group_add:
+      - video
+    ipc: host
+    shm_size: 8G
