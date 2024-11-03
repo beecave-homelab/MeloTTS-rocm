@@ -9,7 +9,7 @@ COPY requirements.txt /app
 RUN pip install -r requirements.txt --no-cache-dir
 
 COPY requirements-rocm.txt /app
-RUN pip install -r requirements-rocm.txt --no-cache-dir
+RUN pip install --force-reinstall -r requirements-rocm.txt --no-cache-dir
 
 COPY melo /app/melo
 

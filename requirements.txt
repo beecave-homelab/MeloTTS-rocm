@@ -1,6 +1,5 @@
+botocore>=1.34.98
 txtsplit
-torch
-torchaudio
 cached_path
 transformers==4.27.4
 num2words==0.5.12
@@ -27,3 +26,6 @@ langid==1.1.6
 tqdm
 tensorboard==2.16.2
 loguru==0.7.2
+pydantic==2.9.0
+fastapi==0.112.4
+# starlette==0.27.0
