@@ -2,14 +2,16 @@ services:
   app:
     build:
       context: . 
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
+    image: ghcr.io/beecave-homelab/melotts-rocm:main 
+    container_name: MeloTTS
+    restart: unless-stopped
     ports:
       - "8888:8888" 
     volumes:
       - .:/app
     environment:
       - PYTHONUNBUFFERED=1
-    command: ["python3", "-m", "melo.app", "--host", "0.0.0.0", "--port", "8888"]
     # To allow AMD GPU access:
     devices:
       - "/dev/kfd:/dev/kfd"
@@ -24,3 +26,4 @@ services:
       - video
     ipc: host
     shm_size: 8G
+    command: ["python3", "-m", "melo.app", "--host", "0.0.0.0", "--port", "8888"]
