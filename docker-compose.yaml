@@ -12,6 +12,8 @@ services:
       - .:/app
     environment:
       - PYTHONUNBUFFERED=1
+      # Workouround to work with AMD RX6600 GPU
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
     # To allow AMD GPU access:
     devices:
       - "/dev/kfd:/dev/kfd"
