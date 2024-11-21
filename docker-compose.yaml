@@ -1,0 +1,31 @@
+services:
+  app:
+    build:
+      context: . 
+      dockerfile: Dockerfile
+    image: ghcr.io/beecave-homelab/melotts-rocm:main 
+    container_name: MeloTTS
+    restart: unless-stopped
+    ports:
+      - "8888:8888" 
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      # Workouround to work with AMD RX6600 GPU
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
+    # To allow AMD GPU access:
+    devices:
+      - "/dev/kfd:/dev/kfd"
+      - "/dev/dri:/dev/dri"
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    group_add:
+      - video
+    ipc: host
+    shm_size: 8G
+    command: ["python3", "-m", "melo.app", "--host", "0.0.0.0", "--port", "8888"]
